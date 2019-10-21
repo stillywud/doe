@@ -13,13 +13,6 @@ import com.mmc.dubbo.doe.auth.MenuNode;
 import com.mmc.dubbo.doe.auth.MenuTree;
 import com.mmc.dubbo.doe.service.MenuService;
 import com.mmc.dubbo.doe.util.JsonFileUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,6 +21,12 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author Joey
@@ -111,7 +110,6 @@ public class MenuServiceImpl implements MenuService {
     }
 
     private void createFile(String projectRealPath, String html) throws Exception {
-
         // 创建目录
         File path = new File(projectRealPath);
         if (!path.exists()) {
@@ -124,8 +122,10 @@ public class MenuServiceImpl implements MenuService {
             file.delete();
         }
 
+
         // 写入权限菜单
         PrintWriter out = new PrintWriter(file);
+
         String content = ""
 //                + "<div th:fragment=\"lefter\" xmlns:th=\"http://www.thymeleaf.org\">"
                 + "\n<div class=\"sidebar\" id=\"sidebar\" >                                                                                        \n"
@@ -146,11 +146,12 @@ public class MenuServiceImpl implements MenuService {
 //                + "\n</div>"
                 + "</div>";
 
+        //FileUtil.WriteStringToFile("menu.html.html",html);
+
         this.html = content;
         out.append(content);
         out.flush();
         out.close();
-
     }
 
     private MenuNode buildTree(List<MenuNode> menuList, int pMenuId) {

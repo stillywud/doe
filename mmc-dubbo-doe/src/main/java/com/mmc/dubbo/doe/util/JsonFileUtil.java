@@ -10,7 +10,6 @@
 package com.mmc.dubbo.doe.util;
 
 import com.alibaba.fastjson.JSON;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +28,8 @@ public class JsonFileUtil {
      */
     public static <T> List<T> readList(InputStream inputStream, Class<T> clazz) throws IOException {
 
-        BufferedReader tBufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader tBufferedReader = new BufferedReader(
+            new InputStreamReader(inputStream, "UTF-8"));
 
         StringBuilder sb = new StringBuilder();
 

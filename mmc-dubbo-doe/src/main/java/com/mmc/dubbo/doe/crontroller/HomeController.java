@@ -10,6 +10,8 @@
 package com.mmc.dubbo.doe.crontroller;
 
 import com.mmc.dubbo.doe.service.MenuService;
+import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,80 +22,89 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2018/6/16 11:57
  */
 @Controller
+@Slf4j
 @RequestMapping("/doe/home")
 public class HomeController {
 
-    @Autowired
-    private MenuService menuService;
+  @Autowired
+  private MenuService menuService;
 
-    @RequestMapping("/index")
-    public String index(Model model) {
+  @RequestMapping("/index")
+  public String index(Model model) {
 
-        // open easyCnt page defaultly.
-        return index("f16001100", model);
+    // open easyCnt page defaultly.
+    return index("f16001100", model);
+  }
+
+  @RequestMapping("/main")
+  public String index(String mid, Model model) {
+
+    // you can do something here, such as auth validation,,,
+    Integer menuId = Integer.valueOf(mid.substring(1));
+    String path = menuService.getUrl(menuId);
+    String menuHtml = menuService.getHtml();
+
+    model.addAttribute("mid", mid);
+    model.addAttribute("menuHtml", menuHtml);
+//    log.info("计划返回的path:{}",path);
+    if (Objects.nonNull(path)) {
+      if (path.startsWith("/")) {
+        path = path.replaceFirst("/", "");
+      }
     }
+//    log.info("实际返回的path:{}",path);
 
-    @RequestMapping("/main")
-    public String index(String mid, Model model) {
+    return path;
 
-        // you can do something here, such as auth validation,,,
-        Integer menuId = Integer.valueOf(mid.substring(1));
-        String path = menuService.getUrl(menuId);
-        String menuHtml = menuService.getHtml();
-
-        model.addAttribute("mid", mid);
-        model.addAttribute("menuHtml", menuHtml);
-
-        return path;
-
-    }
+  }
 
 
-    @RequestMapping("/normalCnt")
-    public String openNormalPage() {
+  @RequestMapping("/normalCnt")
+  public String openNormalPage() {
 
-        return "/pages/v3/normalCnt.html";
-    }
+    return "pages/v3/normalCnt.html";
+  }
 
-    @RequestMapping("/caseCnt")
-    public String openCasePage() {
+  @RequestMapping("/caseCnt")
+  public String openCasePage() {
 
-        return "/pages/v3/caseCnt.html";
-    }
+    return "pages/v3/caseCnt.html";
+  }
 
-    @RequestMapping("/easyCnt")
-    public String openEasyPage() {
+  @RequestMapping("/easyCnt")
+  public String openEasyPage() {
 
-        return "/pages/v3/easyCnt.html";
-    }
+    return "pages/v3/easyCnt.html";
+  }
 
-    @RequestMapping("/addJar")
-    public String openAddJarPage() {
+  @RequestMapping("/addJar")
+  public String openAddJarPage() {
 
-        return "/pages/v3/addJar.html";
-    }
+    return "pages/v3/addJar.html";
+  }
 
-    @RequestMapping("/listJar")
-    public String openListJarPage() {
+  @RequestMapping("/listJar")
+  public String openListJarPage() {
 
-        return "/pages/v3/listJar.html";
-    }
-    @RequestMapping("/editPom")
-    public String openEditPomPage() {
+    return "pages/v3/listJar.html";
+  }
 
-        return "/pages/v3/editPom.html";
-    }
+  @RequestMapping("/editPom")
+  public String openEditPomPage() {
 
-    @RequestMapping("/listZk")
-    public String openListZkPage() {
+    return "pages/v3/editPom.html";
+  }
 
-        return "/pages/v3/listZk.html";
-    }
+  @RequestMapping("/listZk")
+  public String openListZkPage() {
 
-    @RequestMapping("/sys")
-    public String openSysPage() {
+    return "pages/v3/listZk.html";
+  }
 
-        return "/pages/v3/sys.html";
-    }
+  @RequestMapping("/sys")
+  public String openSysPage() {
+
+    return "pages/v3/sys.html";
+  }
 
 }

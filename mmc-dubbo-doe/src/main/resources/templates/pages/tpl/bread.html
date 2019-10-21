@@ -1,43 +1,54 @@
- <div class="breadcrumbs" th:fragment="breader" xmlns:th="http://www.thymeleaf.org">
-     <script type="text/javascript">
-         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-     </script>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <title>Doe</title>
 
-     <ul id="breadcrumb" class="breadcrumb">
-         <li>
-             <i class="icon-home home-icon"></i>
-             <a href="#">首页 </a>
-         </li>
-     </ul><!-- .breadcrumb -->
+</head>
+<body>
+<div class="breadcrumbs" th:fragment="breader" xmlns:th="http://www.thymeleaf.org">
+  <script type="text/javascript">
+    try {
+      ace.settings.check('breadcrumbs', 'fixed')
+    } catch (e) {
+    }
+  </script>
 
-     <span class="hidden" id="xxxMenuId" th:text="${mid}"></span>
-     <script type="text/javascript">
-         jQuery(function($) {
+  <ul id="breadcrumb" class="breadcrumb">
+    <li>
+      <i class="icon-home home-icon"></i>
+      <a href="#">首页 </a>
+    </li>
+  </ul><!-- .breadcrumb -->
 
-             var mid = $("#xxxMenuId").text();
+  <span class="hidden" id="xxxMenuId" th:text="${mid}"></span>
+  <script type="text/javascript">
+    jQuery(function ($) {
 
-             // 如果没有参数，直接打开第一个
-             if ("" == mid || mid.length <= 0) {
-                 mid = $(".submenu > li:first").attr("id");
-                 openMenu(mid);
-             } else {
-                 openMenu(mid);
-             }
+      var mid = $("#xxxMenuId").text();
 
+      // 如果没有参数，直接打开第一个
+      if ("" == mid || mid.length <= 0) {
+        mid = $(".submenu > li:first").attr("id");
+        openMenu(mid);
+      } else {
+        openMenu(mid);
+      }
 
-         });
-         function openMenu(menuId) {
-             if (null == menuId || undefined == menuId) {
-                 return;
-             }
-             // 顺序添加样式
-             $("#" + menuId).addClass("open active");
-             var $pMenu = $("#" + menuId).parent().parent();
-             var pId = $pMenu.attr("id");
-             openMenu(pId);
+    });
 
+    function openMenu(menuId) {
+      if (null == menuId || undefined == menuId) {
+        return;
+      }
+      // 顺序添加样式
+      $("#" + menuId).addClass("open active");
+      var $pMenu = $("#" + menuId).parent().parent();
+      var pId = $pMenu.attr("id");
+      openMenu(pId);
 
-         }
-     </script>
+    }
+  </script>
 
- </div>
+</div>
+</body>
+</html>
